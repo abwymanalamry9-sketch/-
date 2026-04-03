@@ -13,7 +13,10 @@ if (!process.env.FIREBASE_KEY) {
 // قراءة مفتاح Firebase مباشرة
 let serviceAccount;
 try {
-  serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
+  let keyString = process.env.FIREBASE_KEY;
+  // إذا كانت الـ newlines حقيقية، حولها إلى \n نصية
+  keyString = keyString.replace(/\n/g, '\\n');
+  serviceAccount = JSON.parse(keyString);
 } catch (err) {
   console.error("❌ خطأ في JSON لمفتاح Firebase:", err.message);
   console.error("محتوى FIREBASE_KEY (أول 100 حرف):", process.env.FIREBASE_KEY.substring(0, 100));
