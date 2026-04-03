@@ -7,15 +7,16 @@ app.use(express.json());
 // 🔹 التحقق من متغير البيئة قبل التحويل
 if (!process.env.FIREBASE_KEY) {
   console.error("❌ متغير البيئة FIREBASE_KEY غير موجود!");
-  process.exit(1); // إيقاف السيرفر إذا المفتاح غير موجود
+  process.exit(1);
 }
 
-// قراءة مفتاح Firebase من Environment Variable مع إصلاح newline
+// قراءة مفتاح Firebase مباشرة
 let serviceAccount;
 try {
-  serviceAccount = JSON.parse(process.env.FIREBASE_KEY.replace(/\n/g, '\\n'));
+  serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 } catch (err) {
-  console.error("❌ خطأ في JSON لمفتاح Firebase:", err);
+  console.error("❌ خطأ في JSON لمفتاح Firebase:", err.message);
+  console.error("محتوى FIREBASE_KEY (أول 100 حرف):", process.env.FIREBASE_KEY.substring(0, 100));
   process.exit(1);
 }
 
