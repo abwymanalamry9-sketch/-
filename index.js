@@ -13,7 +13,7 @@ if (!process.env.FIREBASE_KEY) {
 // قراءة مفتاح Firebase من Environment Variable مع إصلاح newline
 let serviceAccount;
 try {
-  serviceAccount = JSON.parse(process.env.FIREBASE_KEY.replace(/\\n/g, '\n'));
+  serviceAccount = JSON.parse(process.env.FIREBASE_KEY.replace(/\n/g, '\\n'));
 } catch (err) {
   console.error("❌ خطأ في JSON لمفتاح Firebase:", err);
   process.exit(1);
